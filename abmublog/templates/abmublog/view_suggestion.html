@@ -1,0 +1,25 @@
+{% extends 'abmublog/base.html' %}
+{% load static %}
+{% block content %}
+ {% if request.user.is_staff %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6" style="">
+              <h4>Total {{suggestion.count}} suggestion</h4>
+            {% for suggest in suggestion %}
+               <div class="card card-body">
+                  <h4  class="alert alert-info"><span class="glyphicon glyphicon-ok"></span> {{suggest.user.get_full_name}}</h4>
+                   <p style="margin-left:30px;"><i>{{suggest.suggestion}}</i></p>
+                   <h6 style="margin-left:30px;">{{suggest.timestamp}}</h6>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                       <button style="float:right" type="submit">delete</button>
+                    <button style="float:right" type="submit">Replay</button>
+                   </form>
+               </div>
+              {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}

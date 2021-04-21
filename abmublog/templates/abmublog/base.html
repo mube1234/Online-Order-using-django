@@ -1,0 +1,43 @@
+<html>
+<head>
+    <title>
+       {% block title %}
+        {% endblock %}
+    </title>
+ {% load static %}
+    <meta charset="utf-8">
+       <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+       <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+       <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"/>
+       <link rel="stylesheet" href="{% static 'css3/css/bootstrap.min.css' %}"/>
+       <link rel="stylesheet" href="{% static 'style.css' %}"/>
+<!--    important script tags-->
+    <script src="{% static 'js/jquery-1.11.3.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script>
+     $(document).ready(function()
+     {
+      $(".delete").click(function()
+          {
+          return confirm("Are you sure to delete this order?")
+          });
+      $(".orderdelete").click(function()
+          {
+          return confirm("Are you sure to delete this order?")
+          });
+    });
+</script>
+
+</head>
+
+    <body style="background:#e2e2e2">
+      {% include 'abmublog/navbar.html' %}
+      {% block content %}
+
+      {% endblock content  %}
+      <br>
+    {% include 'abmublog/footer.html' %}
+
+    </body>
+
+</html>

@@ -1,0 +1,74 @@
+{% extends 'abmublog/base.html' %}
+{% block title %}dashboard{% endblock %}
+{% block content %}
+ {% if messages %}
+  <div class="card card-body">
+              <div class="alert alert-danger">
+                   {% for message in messages %}
+                        <p style="text-align:center">{{message}}</p>
+                   {% endfor %}
+               </div>
+   </div>
+{% endif %}
+{% include 'abmublog/status.html' %}
+    <div class="container-fluid">
+        <div class="row">
+       <div class="col-md-7">
+ <div class="card card-body">
+     <h5>Customer Orders</h5>
+                  <form action="" class="form-inline">
+                         {% csrf_token %}
+                           <input style="width:50%" type="search" placeholder="Search Orders"
+                                  class="form-control" name="q" required="required">
+                          <button class="btn btn-primary" type="submit">Search</button>
+               </form><br>
+
+                <table class="table table-sm table-bordered" >
+                    <tr >
+                         <th>Name</th>
+                         <th>Product</th>
+                         <th>Title</th>
+                         <th>Date Ordered</th>
+                         <th>Status</th>
+                         <th>Action</th>
+
+                    </tr>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{order.name.first_name}}</td>
+                            <td>{{order.type}}</td>
+                            <td>{{order.title}}</td>
+                            <td>{{order.date_created|date:"F d, Y"}}</td>
+                            <td><a style="color:green" class="btn btn-sm btn-link" href="{% url 'order-approve' order.id %}">{{order.status}}</a></td>
+                            <td> <a class="btn btn-sm btn-link orderdelete" href="{% url 'deleteorder' order.id %}"><span class="glyphicon glyphicon-trash"></span> Remove</a></td>
+
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+              <div class="col-md-5">
+            <h5>{{total_customers}} Customers</h5>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    <tr style="">
+                         <th>Customers Name</th>
+                         <th>Phone</th>
+                         <th>Action</th>
+                    </tr>
+                    {% for customer in customers %}
+                        <tr>
+                            <td>{{customer.user.get_full_name}}</td>
+                            <td>{{customer.phone}}</td>
+                            <td><a href="{% url 'customer' customer.id %}"><span class="glyphicon glyphicon-eye-open"> View</a></td>
+
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+    </div>
+  </div>
+{% endblock %}

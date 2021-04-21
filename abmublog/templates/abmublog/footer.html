@@ -1,0 +1,54 @@
+{% load static %}
+<footer class="footer text-white" style="background:#1f004d">
+<div class="container">
+<div class="col-md-12">
+   <center>
+
+        <h2> <img class="rounded-circle" src="{% static 'images/abmulogo.png' %}"
+                  style="width:200px;">Keep in touch with us</h2>
+    </center>
+    </div>
+<div class="col-md-12">
+    <div class="col-md-4" style="text-align:center">
+            <h4>Useful contacts</h4>
+                <p>0941208840</p>
+                 <p>0943159890</p>
+        {% if user.is_authenticated %}
+                <p><a href="{% url 'suggestion' %}" class="btn btn-success" >give Suggestion</a></p>
+        {% endif %}
+        <a href=""> <img src="{% static 'images/facebook.png' %}"></a>
+             <a href=""><img src="{% static 'images/youtube.png' %}" alt="youtube"></a>
+             <a href=""><img src="{% static 'images/linkedin.png' %}"></a>
+             <a href=""><img src="{% static 'images/telegram.png' %}"></a>
+
+
+
+        </div>
+
+        <div class="col-md-4" style="text-align:center">
+            <h4>Address</h4>
+                <p>Bedele,Ethiopia</p>
+                <p>abmu@gmail.com</p>
+
+
+
+        </div>
+
+    <div class="col-md-4" style="text-align:center">
+        <h4>Useful links</h4>
+                 <p><a href="" style="color:#fff">Languages</a></p>
+                <p><a href="" style="color:#fff">Home</a></p>
+                <p><a href="" style="color:#fff">About us</a></p>
+                <p><a href="" style="color:#fff">Markets</a></p>
+                <p><a style="color:#fff" href="{% url 'logout' %}">Logout</a></p>
+   </div>
+</div>
+    <div class="col-md-12" style="background:#140033">
+
+        <center><p> © 2020 Burka-Tech <br>
+               Designed by Burka-Tech </p>
+
+        </center>
+    </div>
+</div>
+</footer>

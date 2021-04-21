@@ -1,0 +1,56 @@
+{% extends 'abmublog/base.html' %}
+{% block title %}Addnewproduct{% endblock %}
+{% load static %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+              <div class="col-md-5">
+                  <div class="card card-body">
+                         {% if messages %}
+                                  <div class="alert alert-success" style="background:green;color:#fff">
+                                       {% for message in messages %}
+                                            <p style="text-align:center">{{message}}</p>
+                                       {% endfor %}
+                                   </div>
+                       {% endif %}
+                      <h3><span class="glyphicon glyphicon-upload"></span> Add New Product</h3>
+                      <form action="" method="post" enctype="multipart/form-data">
+                         {% csrf_token %}
+                           {{form.as_p}}<br>
+                           <button  type="submit" name="add" class="btn btn-success">Add</button>
+                        </form>
+                  </div>
+               </div>
+
+              <div class="col-md-7">
+                   <div class="card card-body">
+                       <h4>Currently posted products</h4>
+                       <table class="table table-bordered">
+                         <thead>
+                           <tr>
+
+                               <th>Type</th>
+                               <th>Title</th>
+                               <th>Action</th>
+                           </tr>
+                         </thead>
+                           {% for post in posts %}
+                           <tbody>
+
+                                  <td>{{post.type}}</td>
+                                  <td>{{post.title}}</td>
+                                    <td>
+                                        <a href="{% url 'editmakeorder'  post.id%}"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                         <a class="delete" href="{% url 'deletemakeorder'  post.id%}"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                                    </td>
+                           </tbody>
+                           {% endfor %}
+
+                       </table>
+                       <p style="color:blue">{{posts.count}} producs</p>
+                   </div>
+              </div>
+        </div>
+</div>
+</body>
+{% endblock content %}

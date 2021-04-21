@@ -1,0 +1,24 @@
+{% extends 'abmublog/base.html' %}
+{% block content %}
+<div class="container-fluid">
+<div class="row">
+ <div class="col-md-4">
+     <form action="" method="post">
+                      {% csrf_token %}
+                      <div class="card card-body">
+                          {{form.errors}}
+                          <center><h4 style="color:green"><b>Confirm Order</b></h4></center>
+                          <hr>
+
+                              {{form}}<br>
+                          <div class="form-group">
+                          <button class="btn btn-success" type="submit" >Done</button>
+                          <a class="btn btn-warning mr-2" href="{% url 'dashboard' %}" >Cancel</a>
+                           </div>
+                     </div>
+
+     </form>
+ </div>
+   </div>
+</div>
+{% endblock content %}

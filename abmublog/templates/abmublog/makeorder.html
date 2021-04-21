@@ -1,0 +1,39 @@
+{% extends 'abmublog/base.html' %}
+{% block title %}Make order{% endblock %}
+{% load static %}
+{% block content %}
+<body style="background:#f2f2f2">
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12 ">
+              <div class="col-md-6">
+                  <div class="card card-body">
+          {% if messages %}
+                  <div class="alert alert-success" style="background:green;color:#fff">
+                       {% for message in messages %}
+                            <p style="text-align:center">{{message}}</p>
+               {% endfor %}
+           </div>
+       {% endif %}
+                      <form action="" method="post">
+                         {% csrf_token %}
+                             <h3 style="text-align:center;color:#008899"> Make New Order</h3>
+                          <div>
+                             <strong style="color:red;">{{form.errors}}</strong>
+                          </div>
+                          <div class="panel-body">
+                              <p>&#174 What type of delivery are you looking for?</p>
+                                 {{form.as_p}}
+                           <button  type="submit" name="Register" class="btn btn-success">Order</button>
+                          <a href="{% url 'homepage' %}" class="btn btn-danger" >cancel</a>
+
+                           </div>
+                        </form>
+                  </div>
+               </div>
+
+           </div>
+        </div>
+</div>
+</body>
+{% endblock content %}

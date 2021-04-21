@@ -1,0 +1,242 @@
+{% extends 'abmublog/base.html' %}
+{% block title %}Homepage{% endblock %}
+{% load static %}
+{% block content %}
+<div class="container-fluid" style="margin-top:-100px">
+    <div class="row">
+        <section class="header">
+            <div class="col-md-12 banner">
+           <center>
+                <h1>Lets start the magic</h1>
+                 <p>Abmu helps people to get educational material like book,video tutorial<br>and movies
+                      with a minimum cost.<br>Just order us</p>
+                     {% if not user.is_authenticated %}
+                        <a href="{% url 'register' %}" class="btn btn-primary"><strong>Join Free</strong></a>
+                        <a href="{% url 'login' %}" id="btntwo" class="btn btn-default"><strong>Order Now</strong></a>
+                      {% else %}
+                         <a href="{% url 'orderpage' %}" id="btntwo1" class="btn btn-default"><strong>Order Now</strong></a>
+                      {% endif %}
+           </center>
+          </div>
+      </section>
+   </div>
+</div>
+    <div class="row">
+        <div class="card col-md-5">
+            <h4><center>Latest Products</center></h4>
+               <form action="" class="form-inline">
+                         {% csrf_token %}
+                           <input style="width:70%" type="search" placeholder="Search New Products"
+                                  class="form-control" name="q" required="required">
+                          <button class="btn btn-primary" type="submit">Search</button>
+               </form>
+           {% for product in products %}
+             <form action="" method="post">
+                         {% csrf_token %}
+                    <div class="card-body">
+                         <p>Type: <b>{{product.type}}</b></p>
+                         <p>Title : <b>{{product.title}}</b></p>
+                         <p>Published on: <b>{{product.date_posted|date:"F d, Y"}}</b></p>
+                         <p><img style="width:75%;height:250px" class="card-img-top" src="{{product.image.url}}" alt="your_image_here">
+                              </p>
+
+                         <a href="{% url 'homepageorder' product.id %}" class="btn btn-primary btn-sm">Order Now</a>
+                        {% if request.user.is_staff %}
+                        <a href="{% url 'editmakeorder' product.id %}" class="btn btn-info btn-sm">Edit</a>
+                        {% endif %}
+
+                    </div><hr>
+             </form>
+               {% empty %}
+         <div class="card card-body">
+             <h4>0 results for <b>{{request.GET.q}}</b></h4>
+         </div>
+            {% endfor %}
+
+<!--          pagination here-->
+          <div  style="margin:10px;">
+              {% if is_paginated %}
+                 {% if page_obj.has_previous %}
+                    <a class="btn btn-outline-info" href="?page=1">Frist</a>
+                    <a class="btn btn-outline-info" href="?page={{page_obj.previous_page_number}}">Previous</a>
+                 {% endif %}
+                 {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <a class="btn btn-info" href="?page={{ num }}">{{ num }}</a>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                         <a class="btn btn-outline-info" href="?page={{ num }}">{{ num }}</a>
+                     {% endif %}
+              {% endfor %}
+
+                  {% if page_obj.has_next %}
+                        <a class="btn btn-outline-info" href="?page={{page_obj.next_page_number}}">Next</a>
+                        <a class="btn btn-outline-info" href="?page={{page_obj.paginator.num_pages}}">Last</a>
+                  {% endif %}
+
+              {% endif %}
+          </div>
+              <!--end of pagination-->
+
+          </div>
+
+        <div class="col-md-7" style="background:#000;color:#fff">
+            <div class="row">
+                <div style="width:100%">
+                    <center><h1 id="service">Services</h1>
+               <h4>We provide a wide range of services<br></h4>
+               <p>Lets start ordering with Abmu app to save a lot of money.</p>
+                </center>
+
+                </div>
+         <div class="col-md-6">
+            <img class="image1" src="{% static 'images/windows.png' %}">
+             <a href="" style="text-decoration:none"><h4>Technical</h4></a>
+             <p>Windows format</p>
+             <p>Windows upgrade</p>
+             <p>Windows recovery</p>
+             <p>Sw installation</p>
+         </div>
+         <div class="col-md-6">
+              <img class="image1" src="{% static 'images/friendship.png' %}">
+             <a href="" style="text-decoration:none"><h4>Real-time services</h4></a>
+             <p>Provide fast wifi </p>
+             <p>Frontend development</p>
+             <p>Backend development</p>
+             <p>Ms office 2016</p>
+
+         </div>
+         <div class="col-md-6">
+               <img class="image1" src="{% static 'images/book2.png' %}">
+            <a href="" style="text-decoration:none"> <h4>Book store</h4></a>
+             <p>Educational books</p>
+             <p>GK books</p>
+             <p>fictions</p>
+             <p>Research and project</p>
+
+         </div>
+           <div class="col-md-6">
+              <img class="image1" src="{% static 'images/idea.png' %}">
+           <a href="" style="text-decoration:none">  <h4>Web Development</h4></a>
+             <p>Personal blog</p>
+             <p>School websites</p>
+             <p>News feed</p>
+             <p>Company CMS</p>
+             <p>Web applications</p>
+         </div>
+          <div class="col-md-6">
+              <img class="image1" src="{% static 'images/film1.png' %}">
+                <a href="" style="text-decoration:none">  <h4>Video related</h4></a>
+             <p>Technological</p>
+             <p>Educational</p>
+             <p>Entartainment</p>
+             <p>Movies</p>
+             <p>Other</p>
+         </div>
+            </div>
+         </div>
+        </div>
+    </div>
+
+      <div class="row">
+    <div class="col-md-4">
+        <div class="card card-body">
+              <div class="service">
+                <img class="image1" src="{% static 'images/order1.png' %}">
+                <h5>Order Express</h5>
+                 <p>Using these site you can order a lot of things like movies and educational materials at anytime.
+                     After your order or request is delivered you have to come to our WSP area and collect it.  </p>
+               </div>
+          </div>
+    </div>
+     <div class="col-md-4">
+         <div class="card card-body">
+              <div class="service">
+                  <img class="image1" src="{% static 'images/friendship.png' %}">
+                  <h5>Offer Around You</h5>
+                  <p>Due to our system is distributed, customer can also get thier order from around them simply by contacting us.
+                    fugiat ipsum labore minus modi obcaecati placeat porro, quae reiciendis repellat?</p>
+                  </div>
+          </div>
+     </div>
+     <div class="col-md-4">
+         <div class="card card-body">
+             <div class="service">
+                <img class="image1" src="{% static 'images/popular_topic.png' %}">
+                <h5>Pocket friendly</h5>
+                <p>You will get what you have ordered by paying a minimum cost during the recieving time. Our customer payment is
+                    not too much so order and get what you want friendly.If you have any complient please contact us
+                below.</p>
+             </div>
+         </div>
+     </div>
+</div>
+
+<div class="row">
+         <div class="col-md-12">
+            <div class="card card-body">
+               <center> <h2 id="about">About Us</h2>
+               <p>We are interested and passionated to serve our community especially students by providing them thier corresponding educational materials.<br>
+                  As much as possible we can accept your orders and deliver you ontime.<br>
+                   Simple is better than complex. the former is easier to extend and improve.<br>
+                   Thats why achieving simplicity is the most important part of our job.<br>
+            Here's is our formula. What you expect + more.check how it worked for our clients<br>
+            dolorum eaque eos est hic maxime neque <a href="">nesciunt</a> perferendis quod reiciendis repudiandae saepe, sed sequi voluptates?</p>
+</center>
+            </div>
+
+         </div>
+    </div>
+    <div class="row">
+    <div class="col-md-3">
+        <div class="card card-body">
+            <a href=""  style="font-size:18px;">Educational Materials</a>
+              <img src="{% static 'images/bv.jpg' %}" style="width:100%;height:200px;">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda
+                consequatur hic quibusdam. Culpa doloremque esse et ex facere itaque totam!
+                </p>
+            <div>
+                <a href="" class="btn btn-info">Detail</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+
+            <div class="card card-body">
+                <a href=""  style="font-size:18px;">Educational Books</a>
+                 <img src="{% static 'images/vc.jpg' %}" style="width:100%;height:200px;">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda
+                consequatur hic quibusdam. Culpa doloremque esse et ex facere itaque totam!
+               </p>
+        <div>
+                <a href="" class="btn btn-info">Detail</a>
+            </div>
+            </div>
+     </div>
+    <div class="col-md-3">
+        <div class="card card-body">
+            <a href=""  style="font-size:18px;">Educational tutorials</a>
+             <img src="{% static 'images/uy.jpg' %}" style="width:100%;height:200px;">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda
+                consequatur hic quibusdam. Culpa doloremque esse et ex facere itaque totam!
+               </p>
+            <div>
+                <a href="" class="btn btn-info">Detail</a>
+            </div>
+         </div>
+
+    </div>
+     <div class="col-md-3">
+        <div class="card card-body">
+            <a href="" style="font-size:18px;">New Movies </a>
+             <img src="{% static 'images/nm.jpg' %}" style="width:100%;height:200px;">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda
+                consequatur hic quibusdam. Culpa doloremque esse et ex facere itaque totam!
+
+            <div>
+                <a href="" class="btn btn-info">Detail</a>
+            </div>
+         </div>
+    </div>
+</div>
+</div>
+{% endblock content %}

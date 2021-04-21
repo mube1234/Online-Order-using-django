@@ -1,0 +1,25 @@
+{% extends 'abmublog/base.html' %}
+{% block title %}Edit post{% endblock %}
+{% load static %}
+{% block content %}
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+
+              <div class="col-md-8">
+                  <div class="card card-body" style="background:#f4f4f4">
+
+                   <center> <a href="" style="text-decoration:none">  <h3>Edit Posted Product</h3></a></center>
+                      <form action="" method="post" enctype="multipart/form-data">
+                         {% csrf_token %}
+                           {{form.as_p}}<br>
+                           <button  type="submit" name="add" class="btn btn-info">Update</button>
+                        </form>
+                  </div>
+               </div>
+           </div>
+        </div>
+</div>
+</body>
+{% endblock content %}

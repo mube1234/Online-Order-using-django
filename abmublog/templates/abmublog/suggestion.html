@@ -1,0 +1,31 @@
+{% extends 'abmublog/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-5">
+             {% if messages %}
+                 <div class="card card-body">
+
+                         {% for message in messages %}
+
+                                      <div class="alert alert-success left-icon-alert" role="alert">
+                                       <strong>Done!</strong>
+                                        {{message}}  <a href="{% url 'homepage' %}">back to home</a></h2>
+                                       </div>
+
+                            {% endfor %}
+                  </div>
+            {% endif %}
+
+
+
+               <form action="{% url 'suggestion' %}" class="form-group" method="post">
+                 {% csrf_token %}
+                     {{form.as_p}}
+                 <button class="btn btn-info" type="submit">Send</button>
+             </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

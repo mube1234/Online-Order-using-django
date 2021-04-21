@@ -1,0 +1,43 @@
+{% extends 'abmublog/base.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="container-fluid">
+<div class="row">
+ <div class="col-md-6">
+              <div class="card card-body">
+              {% if messages %}
+                     {% for message in messages %}
+                                    <div class="alert alert-success">
+                                       <strong>{{message}}</strong>
+                                    </div>
+                     {% endfor %}
+              {% endif %}
+               <center><img class="rounded-circle" style="width:100px;height:100px;"
+                            src="{{user.userprofile.image.url}}">
+               <p>{{user.get_full_name}}</p></center>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend>Users info</legend>
+                    <div class="card card-body">
+                    <b> {{u_form.first_name.label}}</b>
+                     {{u_form.first_name}}<br>
+                   <b> {{u_form.last_name.label}}</b>
+                    {{u_form.last_name}}<br>
+                    <b>{{u_form.username.label}}</b>
+                    {{u_form.username}}<br>
+                   <b> {{u_form.email.label}}</b>
+                    {{u_form.email}}<br>
+                    {{p_form}}
+
+                    </div>
+                </fieldset>
+              <div class="form-group">
+                <button type="submit" name="update" class="btn btn-success" >Update</button>
+               </div>
+            </form>
+               </div>
+   </div>
+</div>
+</div>
+{% endblock content %}

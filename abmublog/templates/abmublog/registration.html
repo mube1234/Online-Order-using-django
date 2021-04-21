@@ -1,0 +1,48 @@
+{% load static %}
+{% block content %}
+ <head>
+        <title>Registration</title>
+     <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css3/css/bootstrap.min.css' %}"/>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    </head>
+<body style="background:#e2e2e2">
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12 ">
+              <div class="panel panel-body col-md-6">
+                  <form action="" method="post">
+                         {% csrf_token %}
+                          <div class="card card-body">
+                              <img src="{% static 'images/abmulogo.png' %}" style="width:80%">
+                             <h4 style="text-align:center;color:#008899;margin-top:-20px;float:right"><i> Join spacebar Today</i></h4>
+                               <hr>
+    {% if messages %}
+          <div class="alert alert-success" style="background:green;color:#fff">
+              {% for message in messages %}
+                            <p style="text-align:center">{{message}} now
+               <a href="{% url 'login' %}" class="btn btn-info btn-sm">Login</a></p>
+               {% endfor %}
+
+           </div>
+    {% endif %}
+                             <strong style="color:red;">{{form.errors}}</strong>
+                           {{form.as_p}}
+                            <div>
+                           <button type="submit" name="Register" class="btn btn-primary">Register</button>
+                           <p  style="color:#000;font-style:bold;float:right">
+                                Already have account? <a href="{% url 'login' %}" style="color:#000099">Sign in</a>
+                            </p>
+                           </div>
+                           </div>
+                        </form>
+                  </div>
+               </div>
+           </div>
+        </div>
+</div>
+</body>
+{% endblock content %}

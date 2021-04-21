@@ -1,0 +1,70 @@
+{% block content %}
+{% load static %}
+ <head>
+        <title>Login</title>
+     <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css3/css/bootstrap.min.css' %}"/>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    </head>
+  <div class="container-fluid">
+
+      <div class="row">
+          <div class="col-md-3">
+
+          </div>
+           <div class="col-md-6">
+               <img src="{% static 'images/abmulogo.png' %}" style="width:100%">
+                 <div class="card card-body">
+                       <form action="" method="post">
+                           {% csrf_token %}
+                              <h4 style="text-align:center;margin-top:-20px" >Login</h4>
+                              <br>
+                                    {% if messages %}
+                                      <div class="alert alert-danger">
+                                          {% for message in messages %}
+                                                        <p style="text-align:center">{{message}}</p>
+                                           {% endfor %}
+                                       </div>
+                                   {% endif %}
+
+
+                                       <div class="card card-body">
+                                           <label>Username</label>
+                                                  <div class="input-group">
+                                                          <div class="input-group-addon">
+                                                                  <span class="glyphicon glyphicon-user"></span>
+                                                          </div>
+                                                            <input type="text" name="username" class="form-control" placeholder="Username" required="required">
+                                                  </div>
+                                                  <br>
+                                             <label>Password</label>
+                                                      <div  class="input-group">
+
+                                                                <div class="input-group-addon">
+                                                                  <span class="glyphicon glyphicon-lock"></span>
+                                                                 </div>
+                                                          <input type="password" name="password" class="form-control" placeholder="Password" required="required">
+                                                      </div><br>
+           <div>
+                 <button type="submit" name="login" class="btn btn-primary"> Login</button>
+              </div><br>
+          <small class="text-muted">
+              <a href="{% url 'forgot_password'%}" >forgot password?</a>
+          </small>
+
+           <small class="text-muted">
+               <p style="float:right">Need An Account?<a href="{% url 'register' %}" > Sign Up Now</a></p>
+           </small>
+      </div>
+      </form>
+</div>
+</div>
+          <div class="col-md-3">
+
+          </div>
+   </div>
+</div>
+{% endblock content %}
